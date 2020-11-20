@@ -1,0 +1,3 @@
+[submodule "python-gtmetrix"]
+	path = python-gtmetrix
+	url = https://github.com/aisayko/python-gtmetrix
