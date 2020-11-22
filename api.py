@@ -43,7 +43,7 @@ class NoCreditsLeft(Exception):
 class GTMetrixAPI(API):
     _api_url = 'https://gtmetrix.com/api/0.1'
 
-    def __init__(self, credentials_pool, retries=30):
+    def __init__(self, credentials_pool, retries=50):
         self._credentials = cycle(credentials_pool)
         self._retries = retries
 

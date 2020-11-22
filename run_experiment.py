@@ -9,13 +9,15 @@ from utils import run_probing, SpreadsheetWriter
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
 credentials_pool = [
-    ('uph02154@eoopy.com', 'd6e3713ad0228616517e366aad4db7e9'),
-    ('kojohi3627@bcpfm.com', '6d63a4153e3bc9278fa3d1a94b2c140d'),
-    ('fajag83615@bcpfm.com', '076c2642acedf4d5481eb8685ef99ec8')
+    ('glgkwzknsyebslemnv@niwghx.online', 'a19b3e94487495f2d5dbfa1624e54012'),
+    ('ojcyucqnuemhkstode@tsyefn.com', '1b51a4715cbf07af63a29cc6df959c47'),
+    ('mofixap434@1981pc.com', 'f8a4e8055f075bac79e349c715cbdc3d'),
+    ('bewag35604@1981pc.com', '55713370c555e27ca212f8dbe24c53bb'),
+    ('vabade4166@bcpfm.com', 'b96735edf39e312be4b7f9d5c11da2a3'),
 ]
 
 sites = {
-    'x-kom': 'https://www.x-kom.pl/g/2-laptopy-i-komputery.html',
+    'x-kom': 'https://www.x-kom.pl',
     'morele': 'http://www.morele.pl',
 }
 
@@ -36,7 +38,7 @@ is_alive_writer = SpreadsheetWriter(is_alive_worksheet)
 params = (
     (pagespeed_api, pagespeed_writer, 30),
     (is_alive, is_alive_writer, 10),
-    (gtmetrix_api, gtmetrix_writer, 60),
+    (gtmetrix_api, gtmetrix_writer, 5 * 60),
 )
 
 
