@@ -30,6 +30,7 @@ class PageSpeedAPI(API):
         )
         result_json = result.json()
         res = result_json
+
         for key in self._keys_to_extract:
             res = res[key]
         return res[0]
@@ -62,7 +63,6 @@ class GTMetrixAPI(API):
         if credits_left == 0:
             raise NoCreditsLeft()
 
-        result = None
         for _ in range(self._retries):
             time.sleep(2)
 
@@ -78,3 +78,18 @@ class GTMetrixAPI(API):
                 break
             else:
                 return test_json['results']
+
+
+class IsAlive(API):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5)'
+                      ' AppleWebKit/537.36 (KHTML, like Gecko)'
+                      ' Chrome/50.0.2661.102 Safari/537.36'
+    }
+
+    def query(self, url, **params):
+        start = time.time()
+        response = requests.get(url, headers=self.headers)
+        end = time.time()
+
+        return {'response_time': end - start, 'is_alive': response.ok}
