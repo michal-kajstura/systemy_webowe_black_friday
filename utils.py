@@ -1,4 +1,3 @@
-import sys
 import time
 from datetime import datetime
 
@@ -8,22 +7,19 @@ def run_probing(api, writer, sites, sleep_in_sec=120):
         for name, url in sites.items():
             try:
                 result = api.query(url)
-            except Exception as e:
-                print(f'Exception in {name} query for {api.__name__}: {e}', file=sys.stderr)
-                continue
 
-            if result is None:
-                continue
+                if result is None:
+                    continue
 
-            now = datetime.now().strftime('%H:%M:%S, %d/%m/%Y')
-            print(f'{now} - {result}')
-            result['site'] = name
-            result['time'] = now
+                now = datetime.now().strftime('%H:%M:%S, %d/%m/%Y')
+                print(f'{now} - {result}')
+                result['site'] = name
+                result['time'] = now
 
-            try:
                 writer.write(result)
+
             except Exception as e:
-                print(f'Exception in {name} write: {e}', file=sys.stderr)
+                print(e)
 
         time.sleep(sleep_in_sec)
 
@@ -33,6 +29,7 @@ class SpreadsheetWriter:
         self._worksheet = worksheet
         self._row = start_from_row
         self._write_header = self._row == 1
+        self._first = True
         self._keys = None
 
     def write(self, result):
@@ -43,6 +40,9 @@ class SpreadsheetWriter:
             self._worksheet.update(f'A1:{max_col}1', [self._keys])
             self._write_header = False
             self._row += 1
+        elif self._first:
+            self._keys = self._worksheet.row_values(1)
+            self._first = False
 
         self._worksheet.update(f'A{self._row}:{max_col}{self._row}', [values])
         self._row += 1
