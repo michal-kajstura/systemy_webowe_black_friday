@@ -51,7 +51,7 @@ class GTMetrixAPI(API):
         username, api_key = next(self._credentials)
         test_request = requests.post(
             f'{self._api_url}/test',
-            data={'url': url, 'location': '3'},
+            data={'url': url, 'location': '2'},
             auth=(username, api_key),
         )
         test_request_json = test_request.json()
